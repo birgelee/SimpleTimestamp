@@ -26,3 +26,6 @@
 *.exe
 *.out
 *.app
+
+# The debug dir
+SimpleTimestamp/Debug/

