@@ -13,6 +13,11 @@
 #define IDI_SIMPLETIMESTAMPVERIFY			107
 #define IDI_SMALL				108
 #define IDC_SIMPLETIMESTAMPVERIFY			109
+#define IDC_MAIN_BUTTON	110			// Button identifier
+#define IDC_MAIN_EDIT	111			// Edit box identifier
+#define IDC_DATE_TIME	112			// Edit box identifier
+#define IDC_IP_FIELD	113			// Edit box identifier
+#define IDC_LABEL	114			// Edit box identifier
 #define IDC_MYICON				2
 #ifndef IDC_STATIC
 #define IDC_STATIC				-1

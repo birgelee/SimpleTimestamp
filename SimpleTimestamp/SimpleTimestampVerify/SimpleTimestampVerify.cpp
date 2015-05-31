@@ -7,8 +7,6 @@
 #define MAX_LOADSTRING 100
 
 
-#define IDC_MAIN_BUTTON	107			// Button identifier
-#define IDC_MAIN_EDIT	108			// Edit box identifier
 
 // Global Variables:
 HINSTANCE hInst;								// current instance
@@ -37,6 +35,8 @@ int APIENTRY _tWinMain(_In_ HINSTANCE hInstance,
 	LoadString(hInstance, IDS_APP_TITLE, szTitle, MAX_LOADSTRING);
 	LoadString(hInstance, IDC_SIMPLETIMESTAMPVERIFY, szWindowClass, MAX_LOADSTRING);
 	MyRegisterClass(hInstance);
+
+
 
 	// Perform application initialization:
 	if (!InitInstance(hInstance, nCmdShow))
@@ -118,7 +118,8 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 }
 
 HWND hEdit;
-
+HWND hwndPB;
+HWND hWndTitleLabel;
 
 //
 //  FUNCTION: WndProc(HWND, UINT, WPARAM, LPARAM)
@@ -162,12 +163,12 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		SendMessage(hEdit,
 			WM_SETTEXT,
 			NULL,
-			(LPARAM)_T("Insert text here..."));
+			(LPARAM)TEXT("Insert text here..."));
 
 		// Create a push button
 		HWND hWndButton = CreateWindowEx(NULL,
 			_T("BUTTON"),
-			_T("OK"),
+			L"OK",
 			WS_TABSTOP | WS_VISIBLE |
 			WS_CHILD | BS_DEFPUSHBUTTON,
 			50,
@@ -182,6 +183,23 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			WM_SETFONT,
 			(WPARAM)hfDefault,
 			MAKELPARAM(FALSE, 0));
+
+		int cyVScroll = cyVScroll = GetSystemMetrics(SM_CYVSCROLL);
+		CreateIPAddressFld(hWnd, (HMENU) IDC_IP_FIELD, 200, 200);
+		hwndPB = CreateWindowEx(0, PROGRESS_CLASS, (LPTSTR)NULL,
+			WS_CHILD | WS_VISIBLE, 300,
+			300,
+			200, cyVScroll,
+			hWnd, (HMENU)0, GetModuleHandle(NULL), NULL);
+		SendMessage(hwndPB, PBM_SETRANGE, 0, MAKELPARAM(0, 100));
+
+		SendMessage(hwndPB, PBM_SETSTEP, (WPARAM)1, 0);
+
+
+		hWndTitleLabel = CreateWindowEx(WS_EX_TRANSPARENT, L"STATIC", L"", WS_CHILD | WS_VISIBLE | SS_LEFT | WS_SYSMENU, 0, 0, 200, 100, hWnd, (HMENU)IDC_LABEL, GetModuleHandle(NULL), NULL);
+
+		SendMessage(hWndTitleLabel, WM_SETTEXT, NULL, (LPARAM)_T("HI!!!"));
+
 	}
 		break;
 	case WM_COMMAND:
@@ -197,10 +215,11 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 				WM_GETTEXT,
 				sizeof(buffer) / sizeof(buffer[0]),
 				reinterpret_cast<LPARAM>(buffer));
-			MessageBox(NULL,
+			/*MessageBox(NULL,
 				buffer,
 				_T("Information"),
-				MB_ICONINFORMATION);
+				MB_ICONINFORMATION);*/
+			SendMessage(hwndPB, PBM_STEPIT, 0, 0);
 		}
 			break;
 		case IDM_ABOUT:
@@ -221,6 +240,14 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	case WM_DESTROY:
 		PostQuitMessage(0);
 		break;
+	case WM_CTLCOLORSTATIC:
+	{
+		HDC hdcStatic = (HDC)wParam;
+		SetTextColor(hdcStatic, RGB(0, 0, 0));
+		SetBkMode(hdcStatic, TRANSPARENT);
+
+		return (LRESULT)GetStockObject(NULL_BRUSH);
+	}
 	default:
 		return DefWindowProc(hWnd, message, wParam, lParam);
 	}
@@ -245,4 +272,31 @@ INT_PTR CALLBACK About(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
 		break;
 	}
 	return (INT_PTR)FALSE;
+}
+
+
+HWND CreateIPAddressFld(HWND hwndParent, HMENU ID,  int xcoord, int ycoord)
+{
+
+	INITCOMMONCONTROLSEX icex;
+
+	// Ensure that the common control DLL is loaded. 
+	icex.dwSize = sizeof(INITCOMMONCONTROLSEX);
+	icex.dwICC = ICC_INTERNET_CLASSES;
+	InitCommonControlsEx(&icex);
+
+	// Create the IPAddress control.        
+	HWND hWndIPAddressFld = CreateWindow(WC_IPADDRESS,
+		L"",
+		WS_CHILD | WS_OVERLAPPED | WS_VISIBLE,
+		xcoord,
+		ycoord,
+		150,
+		20,
+		hwndParent,
+		ID,
+		hInst,
+		NULL);
+
+	return (hWndIPAddressFld);
 }
