@@ -1,7 +1,7 @@
 #include "stdafx.h"
 
 
-
+#include <Windows.h>
 
 typedef std::codecvt_utf8<wchar_t> convert_type;
 std::wstring_convert<convert_type, wchar_t> converter;
@@ -48,7 +48,11 @@ void hex2bin(const char* src, char* target, int size)
 
 void dumpToFile(std::string filePath, const char* data, int len)
 {
-	std::ofstream myfile(filePath);
+	wchar_t fpb[FILENAME_MAX];
+	int newPathLength = ExpandEnvironmentStrings(convert_string(filePath).c_str(), fpb, FILENAME_MAX);
+	std::wstring wnewFilePath(fpb, newPathLength);
+	std::string newFilePath(convert_wstring(wnewFilePath));
+	std::ofstream myfile(newFilePath);
 	if (myfile.is_open())
 	{
 		myfile.write(data, len);
@@ -74,4 +78,44 @@ std::vector<std::string> split(const std::string &s, char delim)
 	std::vector<std::string> elems;
 	split(s, delim, elems);
 	return elems;
+}
+
+void rmFile(const std::string& filePath)
+{
+	wchar_t fpb[FILENAME_MAX];
+	int newPathLength = ExpandEnvironmentStrings(convert_string(filePath).c_str(), fpb, FILENAME_MAX);
+	std::wstring wnewFilePath(fpb, newPathLength);
+	std::string newPath(convert_wstring(wnewFilePath));
+	std::remove(newPath.c_str());
+}
+
+std::string readFile(const std::string& filePath)
+{
+
+	wchar_t fpb[FILENAME_MAX];
+	int newPathLength = ExpandEnvironmentStrings(convert_string(filePath).c_str(), fpb, FILENAME_MAX);
+	std::wstring wnewFilePath(fpb, newPathLength);
+	std::string newPath(convert_wstring(wnewFilePath));
+	
+	std::ifstream is(newPath, std::ifstream::binary);
+	if (is) {
+		// get length of file:
+		is.seekg(0, is.end);
+		int length = is.tellg();
+		is.seekg(0, is.beg);
+
+		char * buffer = new char[length];
+
+		//std::cout << "Reading " << length << " characters...\n";
+		// read data as a block:
+		is.read(buffer, length);
+
+		if (!is)
+			std::cout << "error: only " << is.gcount() << " could be read\n";
+		is.close();
+		std::string file(buffer, length);
+		delete[] buffer;
+		return file;
+	}
+	return NULL;
 }

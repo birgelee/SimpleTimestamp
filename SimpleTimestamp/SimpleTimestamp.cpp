@@ -6,6 +6,7 @@
 #include "sha256.h"
 #include "Consts.h"
 #include "HTTPHandler.h"
+#include "base64.h"
 
 //#include "HTTPHandler.h"
 
@@ -18,29 +19,7 @@ int _tmain(int argc, _TCHAR* argv[])
 		std::cout << "invalid number of arguements.  1 arguement required." << std::endl;
 		return 1;
 	}
-	
-	std::string file;
-	std::ifstream is(argv[1], std::ifstream::binary);
-	if (is) {
-		// get length of file:
-		is.seekg(0, is.end);
-		int length = is.tellg();
-		is.seekg(0, is.beg);
-
-		char * buffer = new char[length + 1];
-
-		//std::cout << "Reading " << length << " characters...\n";
-		// read data as a block:
-		is.read(buffer, length);
-
-		if (!is)
-			std::cout << "error: only " << is.gcount() << " could be read\n";
-		is.close();
-		buffer[length] = '\0';
-		file = buffer;
-		delete[] buffer;
-	}
-
+	std::string file = readFile(convert_wstring(argv[1]));
 
 	const int totalLength = 256 / 8 + tsqFooterLength + tsqHeaderLength;
 	char tsq[totalLength];
@@ -52,12 +31,35 @@ int _tmain(int argc, _TCHAR* argv[])
 
 
 	std::memcpy(tsq + 256 / 8 + tsqHeaderLength, tsqFooter, tsqFooterLength);
-	dumpToFile("C:\\Users\\Henry\\Desktop\\output.txt", tsq, totalLength);
+	
+
+	HTTPHandler::postRequest("http://timestamp.globalsign.com/scripts/timestamp.dll", tsq, totalLength);
+
+	std::string response = readFile("%TEMP%\\response.tsr");
+	rmFile("%TEMP%\\response.tsr");
+	
+	std::string b64 = base64_encode((unsigned char*) response.c_str(), response.length());
+	std::vector<std::string> infileparts = split(convert_wstring(argv[1]), '\\');
+	std::string inFileName = infileparts[infileparts.size() - 1];
+
+	std::stringstream outFile;
+	outFile << "<base64_data>\n";
+	outFile << b64;
+	outFile << "\n</base64_data>\n";
+	outFile << "<file>\n";
+	outFile << inFileName;
+	outFile << "\n</file>\n";
+	outFile << "<sha256>\n";
+	outFile << sha256(file);
+	outFile << "\n</sha256>\n";
+
+	std::stringstream outFileName;
+	outFileName << ".\\" << inFileName << ".sts";
+	dumpToFile(outFileName.str(), outFile.str().c_str(), outFile.str().length());
 
 
-	HTTPHandler::postRequest("http://hvpn.tk/f", "fd", tsq, 1);
 
-	std::string s;
-	std::getline(std::cin, s);
+	//std::string s;
+	//std::getline(std::cin, s);
 }
 

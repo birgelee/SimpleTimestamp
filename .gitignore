@@ -28,4 +28,5 @@
 *.app
 
 # The debug dir
-SimpleTimestamp/Debug/
+/SimpleTimestampVerify/Debug/
+/SimpleTimestamp/Debug/

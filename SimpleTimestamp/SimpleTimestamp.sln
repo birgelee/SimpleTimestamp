@@ -5,6 +5,8 @@ VisualStudioVersion = 12.0.30501.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SimpleTimestamp", "SimpleTimestamp.vcxproj", "{6926CC75-FB9B-49B3-966D-CFB910AAB609}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SimpleTimestampVerify", "SimpleTimestampVerify\SimpleTimestampVerify.vcxproj", "{B6026F43-DA75-414F-A699-DB323585D868}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -15,6 +17,10 @@ Global
 		{6926CC75-FB9B-49B3-966D-CFB910AAB609}.Debug|Win32.Build.0 = Debug|Win32
 		{6926CC75-FB9B-49B3-966D-CFB910AAB609}.Release|Win32.ActiveCfg = Release|Win32
 		{6926CC75-FB9B-49B3-966D-CFB910AAB609}.Release|Win32.Build.0 = Release|Win32
+		{B6026F43-DA75-414F-A699-DB323585D868}.Debug|Win32.ActiveCfg = Debug|Win32
+		{B6026F43-DA75-414F-A699-DB323585D868}.Debug|Win32.Build.0 = Debug|Win32
+		{B6026F43-DA75-414F-A699-DB323585D868}.Release|Win32.ActiveCfg = Release|Win32
+		{B6026F43-DA75-414F-A699-DB323585D868}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

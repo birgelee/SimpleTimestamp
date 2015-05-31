@@ -4,6 +4,6 @@ class HTTPHandler
 public:
 	HTTPHandler();
 	~HTTPHandler();
-	static void postRequest(std::string url, std::string additionalHeader, char* bodyData, int bodyLength);
+	static void postRequest(std::string url, char* bodyData, int bodyLength);
 };
 
