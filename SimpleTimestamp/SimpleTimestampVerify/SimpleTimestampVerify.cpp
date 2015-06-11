@@ -3,6 +3,7 @@
 
 #include "stdafx.h"
 #include "SimpleTimestampVerify.h"
+#include "TimestampHandler.h"
 
 #define MAX_LOADSTRING 100
 
@@ -12,6 +13,8 @@
 HINSTANCE hInst;								// current instance
 TCHAR szTitle[MAX_LOADSTRING];					// The title bar text
 TCHAR szWindowClass[MAX_LOADSTRING];			// the main window class name
+
+wchar_t* cmd;
 
 // Forward declarations of functions included in this code module:
 ATOM				MyRegisterClass(HINSTANCE hInstance);
@@ -26,6 +29,7 @@ int APIENTRY _tWinMain(_In_ HINSTANCE hInstance,
 {
 	UNREFERENCED_PARAMETER(hPrevInstance);
 	UNREFERENCED_PARAMETER(lpCmdLine);
+	cmd = lpCmdLine;
 
 	// TODO: Place code here.
 	MSG msg;
@@ -77,12 +81,12 @@ ATOM MyRegisterClass(HINSTANCE hInstance)
 	wcex.cbClsExtra = 0;
 	wcex.cbWndExtra = 0;
 	wcex.hInstance = hInstance;
-	wcex.hIcon = LoadIcon(hInstance, MAKEINTRESOURCE(IDI_SIMPLETIMESTAMPVERIFY));
+	wcex.hIcon = LoadIcon(hInstance, MAKEINTRESOURCE(IDI_ICON));
 	wcex.hCursor = LoadCursor(NULL, IDC_ARROW);
 	wcex.hbrBackground = (HBRUSH)(COLOR_WINDOW + 1);
 	wcex.lpszMenuName = MAKEINTRESOURCE(IDC_SIMPLETIMESTAMPVERIFY);
 	wcex.lpszClassName = szWindowClass;
-	wcex.hIconSm = LoadIcon(wcex.hInstance, MAKEINTRESOURCE(IDI_SMALL));
+	wcex.hIconSm = LoadIcon(wcex.hInstance, MAKEINTRESOURCE(IDI_ICON));
 
 	return RegisterClassEx(&wcex);
 }
@@ -104,7 +108,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 	hInst = hInstance; // Store instance handle in our global variable
 
 	hWnd = CreateWindow(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW,
-		CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, NULL, NULL, hInstance, NULL);
+		CW_USEDEFAULT, CW_USEDEFAULT, 300, 200, NULL, NULL, hInstance, NULL);
 
 	if (!hWnd)
 	{
@@ -141,64 +145,15 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	{
 	case WM_CREATE:
 	{
-		// Create an edit box
-		hEdit = CreateWindowEx(WS_EX_CLIENTEDGE,
-			_T("EDIT"),
-			_T(""),
-			WS_CHILD | WS_VISIBLE |
-			ES_MULTILINE | ES_AUTOVSCROLL | ES_AUTOHSCROLL,
-			50,
-			100,
-			200,
-			100,
-			hWnd,
-			(HMENU)IDC_MAIN_EDIT,
-			GetModuleHandle(NULL),
-			NULL);
-		HGDIOBJ hfDefault = GetStockObject(DEFAULT_GUI_FONT);
-		SendMessage(hEdit,
-			WM_SETFONT,
-			(WPARAM)hfDefault,
-			MAKELPARAM(FALSE, 0));
-		SendMessage(hEdit,
-			WM_SETTEXT,
-			NULL,
-			(LPARAM)TEXT("Insert text here..."));
-
-		// Create a push button
-		HWND hWndButton = CreateWindowEx(NULL,
-			_T("BUTTON"),
-			L"OK",
-			WS_TABSTOP | WS_VISIBLE |
-			WS_CHILD | BS_DEFPUSHBUTTON,
-			50,
-			220,
-			100,
-			24,
-			hWnd,
-			(HMENU)IDC_MAIN_BUTTON,
-			GetModuleHandle(NULL),
-			NULL);
-		SendMessage(hWndButton,
-			WM_SETFONT,
-			(WPARAM)hfDefault,
-			MAKELPARAM(FALSE, 0));
-
-		int cyVScroll = cyVScroll = GetSystemMetrics(SM_CYVSCROLL);
-		CreateIPAddressFld(hWnd, (HMENU) IDC_IP_FIELD, 200, 200);
-		hwndPB = CreateWindowEx(0, PROGRESS_CLASS, (LPTSTR)NULL,
-			WS_CHILD | WS_VISIBLE, 300,
-			300,
-			200, cyVScroll,
-			hWnd, (HMENU)0, GetModuleHandle(NULL), NULL);
-		SendMessage(hwndPB, PBM_SETRANGE, 0, MAKELPARAM(0, 100));
-
-		SendMessage(hwndPB, PBM_SETSTEP, (WPARAM)1, 0);
 
 
-		hWndTitleLabel = CreateWindowEx(WS_EX_TRANSPARENT, L"STATIC", L"", WS_CHILD | WS_VISIBLE | SS_LEFT | WS_SYSMENU, 0, 0, 200, 100, hWnd, (HMENU)IDC_LABEL, GetModuleHandle(NULL), NULL);
+		hWndTitleLabel = CreateWindowEx(WS_EX_TRANSPARENT, _T("STATIC"), _T(""), 
+			WS_CHILD | WS_VISIBLE | SS_LEFT | WS_SYSMENU, 
+			0, 0, 500, 300, hWnd, 
+			(HMENU)IDC_LABEL, 
+			GetModuleHandle(NULL), NULL);
 
-		SendMessage(hWndTitleLabel, WM_SETTEXT, NULL, (LPARAM)_T("HI!!!"));
+		SendMessage(hWndTitleLabel, WM_SETTEXT, NULL, (LPARAM)GetTimestampResponseString(_T("C:\\Users\\Henry\\Desktop\\url.htm.sts")).c_str());
 
 	}
 		break;

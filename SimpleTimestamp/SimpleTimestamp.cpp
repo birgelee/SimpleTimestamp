@@ -26,7 +26,6 @@ int _tmain(int argc, _TCHAR* argv[])
 
 	std::memcpy(tsq, tsqHeader, tsqHeaderLength);
 
-
 	hex2bin(sha256(file).c_str(), tsq + tsqHeaderLength, 64);
 
 

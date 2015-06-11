@@ -1,10 +1,21 @@
-﻿Build started 5/24/2015 12:31:38 PM.
-     1>Project "C:\Users\Henry\OneDrive\Documents\GitHub\SimpleTimestamp\SimpleTimestamp\SimpleTimestamp.vcxproj" on node 2 (Build target(s)).
+﻿Build started 6/10/2015 5:37:47 PM.
+     1>Project "C:\Users\Henry\OneDrive\Documents\GitHub\SimpleTimestamp\SimpleTimestamp\SimpleTimestamp.vcxproj" on node 2 (Rebuild target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _LIB /D _CRT_SECURE_NO_WARNINGS /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yu"stdafx.h" /Fp"Debug\SimpleTimestamp.pch" /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt SimpleTimestamp.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _LIB /D _CRT_SECURE_NO_WARNINGS /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yc"stdafx.h" /Fp"Debug\SimpleTimestamp.pch" /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt stdafx.cpp
+         stdafx.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _LIB /D _CRT_SECURE_NO_WARNINGS /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yu"stdafx.h" /Fp"Debug\SimpleTimestamp.pch" /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt base64.cpp HTTPHandler.cpp sha256.cpp SimpleTimestamp.cpp Utils.cpp
+         Utils.cpp
          SimpleTimestamp.cpp
      1>c:\users\henry\onedrive\documents\github\simpletimestamp\simpletimestamp\consts.h(3): warning C4309: 'initializing' : truncation of constant value
      1>c:\users\henry\onedrive\documents\github\simpletimestamp\simpletimestamp\consts.h(4): warning C4309: 'initializing' : truncation of constant value
+         sha256.cpp
+         HTTPHandler.cpp
+         base64.cpp
+     1>c:\users\henry\onedrive\documents\github\simpletimestamp\simpletimestamp\base64.cpp(28): warning C4627: '#include "base64.h"': skipped when looking for precompiled header use
+                 Add directive to 'stdafx.h' or rebuild precompiled header
+         Generating Code...
+       ResourceCompile:
+         C:\Program Files (x86)\Windows Kits\8.1\bin\x86\rc.exe /D _UNICODE /D UNICODE /l"0x0409" /nologo /fo"Debug\SimpleTimestamp.res" SimpleTimestamp.rc 
        Link:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Henry\OneDrive\Documents\GitHub\SimpleTimestamp\SimpleTimestamp\Debug\SimpleTimestamp.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib winhttp.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Henry\OneDrive\Documents\GitHub\SimpleTimestamp\SimpleTimestamp\Debug\SimpleTimestamp.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Henry\OneDrive\Documents\GitHub\SimpleTimestamp\SimpleTimestamp\Debug\SimpleTimestamp.lib" /MACHINE:X86 Debug\SimpleTimestamp.res
          Debug\base64.obj
@@ -14,8 +25,8 @@
          Debug\stdafx.obj
          Debug\Utils.obj
          SimpleTimestamp.vcxproj -> C:\Users\Henry\OneDrive\Documents\GitHub\SimpleTimestamp\SimpleTimestamp\Debug\SimpleTimestamp.exe
-     1>Done Building Project "C:\Users\Henry\OneDrive\Documents\GitHub\SimpleTimestamp\SimpleTimestamp\SimpleTimestamp.vcxproj" (Build target(s)).
+     1>Done Building Project "C:\Users\Henry\OneDrive\Documents\GitHub\SimpleTimestamp\SimpleTimestamp\SimpleTimestamp.vcxproj" (Rebuild target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:01.14
+Time Elapsed 00:00:04.23

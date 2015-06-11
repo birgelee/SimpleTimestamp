@@ -18,5 +18,15 @@
 #include <memory.h>
 #include <tchar.h>
 
+//cpp std lib#include <string>
+#include <iostream>
+#include <stdio.h>
+#include <tchar.h>
+#include <locale>
+#include <codecvt>
+#include <fstream>
+#include <vector>
+#include <sstream>
+
 
 // TODO: reference additional headers your program requires here
