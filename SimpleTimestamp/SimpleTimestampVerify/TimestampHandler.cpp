@@ -31,7 +31,7 @@ std::wstring GetTimestampResponseString(std::wstring path) {
 	else {
 		stampedFile = "";
 		givenSha256 = "";
-		res << "File Status: Not Found              (Fail)" << std::endl;
+		res << "File Status: Not-found             (Fail)" << std::endl;
 	}
 
 	
@@ -45,7 +45,7 @@ std::wstring GetTimestampResponseString(std::wstring path) {
 
 	std::string fileSha256 = sha256(stampedFile);
 	std::transform(fileSha256.begin(), fileSha256.end(), fileSha256.begin(), ::tolower);
-	if (givenSha256 == sha256Res || sha256Res == fileSha256) {
+	if (givenSha256 == sha256Res && sha256Res == fileSha256) {
 		res << "File Contense: Verified           (Good)" << std::endl;
 	}
 	else {
