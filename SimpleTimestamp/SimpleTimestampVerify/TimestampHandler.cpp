@@ -12,6 +12,9 @@ std::wstring GetTimestampResponseString(std::wstring path) {
 	std::stringstream res;
 
 	std::string nPath = convert_wstring(path);
+	if (nPath[0] == '"' && nPath[nPath.length() - 1] == '"') {
+		nPath = nPath.substr(1, nPath.length() - 2);
+	}
 	int last = nPath.find_last_of('\\');
 	std::string nPathPrefix = nPath.substr(0, last);
 	std::string file = readFile(nPath);

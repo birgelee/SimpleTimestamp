@@ -74,7 +74,7 @@ template<typename T, typename P> T remove_if01(T beg, T end, P pred)
 
 void trim(std::string& s)
 {
-	s.erase(remove_if01(s.begin(), s.end(), isspace), s.end());
+	s.erase(remove_if01(s.begin(), s.end(), [](int ch) { return (ch == '\n' || ch == '\r') || ch == '\t'; }), s.end());
 }
 
 void removeWhiteSpaceOrHyphen(std::string& s) {

@@ -28,7 +28,6 @@ int APIENTRY _tWinMain(_In_ HINSTANCE hInstance,
 	_In_ int       nCmdShow)
 {
 	UNREFERENCED_PARAMETER(hPrevInstance);
-	UNREFERENCED_PARAMETER(lpCmdLine);
 	cmd = lpCmdLine;
 
 	// TODO: Place code here.
@@ -153,7 +152,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			(HMENU)IDC_LABEL, 
 			GetModuleHandle(NULL), NULL);
 
-		SendMessage(hWndTitleLabel, WM_SETTEXT, NULL, (LPARAM)GetTimestampResponseString(_T("C:\\Users\\Henry\\Desktop\\url.htm.sts")).c_str());
+		SendMessage(hWndTitleLabel, WM_SETTEXT, NULL, (LPARAM)GetTimestampResponseString(cmd).c_str());
 
 	}
 		break;
